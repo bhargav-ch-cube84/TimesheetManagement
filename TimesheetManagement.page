@@ -1,0 +1,71 @@
+<apex:page StandardController="Case" extensions="timesheetmanagement" sidebar="false" action="{!onloadfunction}">
+    <style> .clsCenter{ text-align:center; } 
+        	.dateFormat::before {
+    				content: "Today Date:";
+        			padding-left: 1em;
+			}
+    </style>
+    <script>function setFocusOnLoad() {}</script> <!-- To remove auto-focus from datepicker-->
+    <apex:form >
+        <apex:pageBlock title="Timesheet">
+            
+            Select&nbsp;Week&nbsp;&nbsp;
+            <apex:inputfield value="{!timesheetEntry.Week_Start_Date__c}">                
+                <apex:actionSupport event="onchange" action="{!onloadfunction}" reRender="otherentrytable" />
+            </apex:inputfield>   
+            
+                <br/> <br/> <br/>
+            <apex:outputPanel id="otherentrytable">
+                <apex:pagemessages />
+                <apex:dataTable cellspacing="5" value="{!otherentrylist}" var="otherentry" rendered="{!NOT(ISNULL(otherentrylist))}">
+                	<apex:column headervalue="Task">
+                        <apex:inputfield value="{!otherentry.Tasks_Other__c}" rendered="{!ISNULL(otherentry.Id)}">
+                            <!--<apex:actionSupport event="onchange" action="{!onloadfunction}" reRender="otherentrytable" />-->
+                        </apex:inputfield>
+                        <apex:outputText value="Saved Hours :" rendered="{!NOT(ISNULL(otherentry.Id))}"/>
+                    </apex:column> 
+                      
+                    <apex:column headervalue="Mon" headerClass="clsCenter">
+                        <apex:inputfield value="{!otherentry.Mon__c}" style="width:30px;" rendered="{!ISNULL(otherentry.Id)}"/>
+                        <apex:outputfield value="{!otherentry.Mon__c}" style="width:30px;" rendered="{!NOT(ISNULL(otherentry.Id))}"/>
+                    </apex:column>
+                    <apex:column headervalue="Tue" headerClass="clsCenter">
+                        <apex:inputfield value="{!otherentry.Tue__c}" style="width:30px;" rendered="{!ISNULL(otherentry.Id)}"/>
+                        <apex:outputfield value="{!otherentry.Tue__c}" style="width:30px;" rendered="{!NOT(ISNULL(otherentry.Id))}"/>
+                    </apex:column> 
+                    
+                    <apex:column headervalue="Wed" headerClass="clsCenter">
+                        <apex:inputfield value="{!otherentry.Wed__c}" style="width:30px;" rendered="{!ISNULL(otherentry.Id)}"/>
+                        <apex:outputfield value="{!otherentry.Wed__c}" style="width:30px;" rendered="{!NOT(ISNULL(otherentry.Id))}"/>
+                    </apex:column>
+                        
+                    <apex:column headervalue="Thu" headerClass="clsCenter">
+                        <apex:inputfield value="{!otherentry.Thu__c}" style="width:30px;" rendered="{!ISNULL(otherentry.Id)}"/>
+                        <apex:outputfield value="{!otherentry.Thu__c}" style="width:30px;" rendered="{!NOT(ISNULL(otherentry.Id))}"/>
+                    </apex:column>
+                        
+                    <apex:column headervalue="Fri" headerClass="clsCenter">
+                        <apex:inputfield value="{!otherentry.Fri__c}" style="width:30px;" rendered="{!ISNULL(otherentry.Id)}"/>
+                        <apex:outputfield value="{!otherentry.Fri__c}" style="width:30px;" rendered="{!NOT(ISNULL(otherentry.Id))}"/>
+                    </apex:column>
+                    
+                    <apex:column headervalue="Sat" headerClass="clsCenter">
+                        <apex:inputfield value="{!otherentry.Sat__c}" style="width:30px;" rendered="{!ISNULL(otherentry.Id)}"/>
+                        <apex:outputfield value="{!otherentry.Sat__c}" style="width:30px;" rendered="{!NOT(ISNULL(otherentry.Id))}"/>
+                    </apex:column>
+                        
+                    <apex:column headervalue="Sun" headerClass="clsCenter">
+                        <apex:inputfield value="{!otherentry.Sun__c}" style="width:30px;" rendered="{!ISNULL(otherentry.Id)}"/>
+                        <apex:outputfield value="{!otherentry.Sun__c}" style="width:30px;" rendered="{!NOT(ISNULL(otherentry.Id))}"/>
+                    </apex:column>
+                </apex:dataTable>
+            </apex:outputpanel>
+            <br/> <br/>
+            <apex:commandbutton value="Add Task" action="{!addrowothers}"/>
+            <apex:commandbutton value="Save Timesheet" action="{!savetimesheet}">
+                
+            </apex:commandbutton>   
+            
+        </apex:pageBlock>
+    </apex:form>            
+</apex:page>
